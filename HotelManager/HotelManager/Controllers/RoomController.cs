@@ -8,7 +8,7 @@ namespace HotelManager.Controllers
     [Route("api/[controller]")]
     public class RoomController : ControllerBase
     {
-        public List<RoomDTO> rooms = new List<RoomDTO>
+        public static List<RoomDTO> rooms = new List<RoomDTO>
         {
             new RoomDTO(0, 1, 250, DTOs.Enums.RoomType.Standart),
             new RoomDTO(1, 2, 30, DTOs.Enums.RoomType.Economy),

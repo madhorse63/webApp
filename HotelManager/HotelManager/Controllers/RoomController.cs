@@ -1,6 +1,7 @@
-﻿using HotelManager.DTOs;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+
+using HotelManager.DTOs;
+using HotelManager.Domain.Services.Room;
 
 namespace HotelManager.Controllers
 {
@@ -8,44 +9,82 @@ namespace HotelManager.Controllers
     [Route("api/[controller]")]
     public class RoomController : ControllerBase
     {
-        public static List<RoomDTO> rooms = new List<RoomDTO>
-        {
-            new RoomDTO(0, 1, 250, DTOs.Enums.RoomType.Standart),
-            new RoomDTO(1, 2, 30, DTOs.Enums.RoomType.Economy),
-            new RoomDTO(2, 3, 20, DTOs.Enums.RoomType.Economy),
-            new RoomDTO(3, 4, 250, DTOs.Enums.RoomType.Standart),
-            new RoomDTO(4, 5, 1000, DTOs.Enums.RoomType.Luxury)
-        };
+        private readonly IRoomService _roomService;
 
+        public RoomController(IRoomService roomService)
+        {
+            _roomService = roomService;
+        }
 
         [HttpGet]
         public IActionResult GetAllRooms()
         {
-            return Ok(rooms);
+            try
+            {
+                return Ok(_roomService.GetAll());
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetRoom(int id)
         {
-            return Ok(rooms[id]);
+            try
+            {
+                return Ok(_roomService.Get(id));
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost]
         public IActionResult CreateRoom(RoomDTO room)
         {
-            RoomDTO newRoom = new RoomDTO(room.Id, room.Number, room.Price, room.Type);
+            try
+            {
+                _roomService.Create(room);
 
-            rooms.Add(newRoom);
+                return NoContent();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
 
-            return NoContent();
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, RoomDTO room)
+        {
+            try
+            {
+                _roomService.Update(id, room);
+
+                return NoContent();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete("{id}")]
-        public IActionResult RemoveRoom(int id)
+        public IActionResult Remove(int id)
         {
-            rooms.RemoveAt(id);
+            try
+            {
+                _roomService.Remove(id);
 
-            return NoContent();
+                return NoContent();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }

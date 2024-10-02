@@ -15,24 +15,24 @@ namespace HotelManager.Data.Stores.Room
 
         public List<RoomDTO> Rooms { get { return _rooms; } }
 
-        public List<RoomDTO> GetAllRooms()
+        public List<RoomDTO> GetAll()
         {
             return _rooms;
         }
 
-        public RoomDTO GetRoom(int id)
+        public RoomDTO Get(int id)
         {
             return _rooms[id];
         }
 
-        public void CreateRoom(RoomDTO room)
+        public void Create(RoomDTO room)
         {
             RoomDTO newRoom = new RoomDTO(room.Id, room.Number, room.Price, room.Type);
 
             _rooms.Add(newRoom);
         }
 
-        public void UpdateRoom(int id, RoomDTO updateRoom)
+        public void Update(int id, RoomDTO updateRoom)
         {
             var room = _rooms[id];
 
@@ -41,7 +41,7 @@ namespace HotelManager.Data.Stores.Room
             room.Type = updateRoom.Type;
         }
 
-        public void RemoveRoom(int id)
+        public void Remove(int id)
         {
             _rooms.RemoveAt(id);
         }

@@ -12,29 +12,29 @@ namespace HotelManager.Domain.Services.Room
             _roomStore = roomStore;
         }
 
-        public List<RoomDTO> GetAllRooms()
+        public List<RoomDTO> GetAll()
         {
-            return _roomStore.GetAllRooms();
+            return _roomStore.GetAll();
         }
 
-        public RoomDTO GetRoom(int id)
+        public RoomDTO Get(int id)
         {
-            return _roomStore.GetRoom(id);
+            return _roomStore.Get(id);
         }
 
-        public void CreateRoom(RoomDTO room)
+        public void Create(RoomDTO room)
         {
-            _roomStore.CreateRoom(room);
+            _roomStore.Create(room);
         }
 
-        public void UpdateRoom(int id, RoomDTO room)
+        public void Update(int id, RoomDTO room)
         {
-            _roomStore.UpdateRoom(id, room);
+            _roomStore.Update(id, room);
         }
 
-        public void RemoveRoom(int id)
+        public void Remove(int id)
         {
-            _roomStore.RemoveRoom(id);
+            _roomStore.Remove(id);
         }
     }
 }

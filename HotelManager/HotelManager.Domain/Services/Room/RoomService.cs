@@ -1,5 +1,5 @@
-﻿using HotelManager.Data.Stores.Room;
-using HotelManager.DTOs;
+﻿using HotelManager.Data.Stores.RoomStore;
+using HotelManager.Core.DTOs.RoomDTO;
 
 namespace HotelManager.Domain.Services.Room
 {
@@ -12,29 +12,41 @@ namespace HotelManager.Domain.Services.Room
             _roomStore = roomStore;
         }
 
-        public List<RoomDTO> GetAll()
+        public async Task <IEnumerable<RoomDTO>> GetAllAsync()
         {
-            return _roomStore.GetAll();
+            try
+            {
+                var rooms = await _roomStore.GetAllAsync();
+
+                return rooms.Select(room => new RoomDTO(room.Id, room.Number, room.Price, room.Type));
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+            
         }
 
-        public RoomDTO Get(int id)
+        public async Task<RoomDTO> GetAsync(int id)
         {
-            return _roomStore.Get(id);
+            var room = await _roomStore.GetAsync(id);
+            return new RoomDTO(room.Id, room.Number, room.Price, room.Type);
         }
 
-        public void Create(RoomDTO room)
+        public async Task CreateAsync(Data.Entites.Room.Room room)
         {
-            _roomStore.Create(room);
+            await _roomStore.CreateAsync(room);
         }
 
-        public void Update(int id, RoomDTO room)
+        public async Task UpdateAsync(int id, Data.Entites.Room.Room room)
         {
-            _roomStore.Update(id, room);
+            await _roomStore.UpdateAsync(id, room);
         }
 
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
-            _roomStore.Remove(id);
+            await _roomStore.RemoveAsync(id);
         }
     }
 }

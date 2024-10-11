@@ -1,17 +1,18 @@
-﻿using HotelManager.DTOs;
+﻿using HotelManager.Data.Entites.Room;
+using HotelManager.Core.DTOs.RoomDTO;
 
 namespace HotelManager.Domain.Services.Room
 {
     public interface IRoomService
     {
-        public List<RoomDTO> GetAll();
+        public Task<IEnumerable<RoomDTO>> GetAllAsync();
 
-        public RoomDTO Get(int id);
+        public Task<RoomDTO> GetAsync(int id);
 
-        public void Create(RoomDTO room);
+        public Task CreateAsync(Data.Entites.Room.Room room);
 
-        public void Update(int id, RoomDTO room);
+        public Task UpdateAsync(int id, Data.Entites.Room.Room room);
 
-        public void Remove(int id);
+        public Task RemoveAsync(int id);
     }
 }

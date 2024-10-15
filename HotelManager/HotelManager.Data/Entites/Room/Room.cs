@@ -1,11 +1,11 @@
 ﻿using HotelManager.Core.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace HotelManager.Core.DTOs.RoomDTO
+namespace HotelManager.Data.Entites.Room
 {
-    public class RoomDTO
+    public class Room
     {
-        public RoomDTO(int id, int number, decimal price, RoomType type)
+        public Room(int id, int number, decimal price, RoomType type)
         {
             Id = id;
             Number = number;

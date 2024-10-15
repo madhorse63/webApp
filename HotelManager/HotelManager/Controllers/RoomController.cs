@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using HotelManager.DTOs;
+using HotelManager.Core.DTOs.RoomDTO;
 using HotelManager.Domain.Services.Room;
+using HotelManager.Data.Entites.Room;
 
 namespace HotelManager.Controllers
 {
@@ -17,11 +18,13 @@ namespace HotelManager.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllRooms()
+        public async Task<IActionResult> GetAllRooms()
         {
             try
             {
-                return Ok(_roomService.GetAll());
+                IEnumerable<RoomDTO> rooms = await _roomService.GetAllAsync();
+
+                return Ok(rooms);
             }
             catch
             {
@@ -30,11 +33,13 @@ namespace HotelManager.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetRoom(int id)
+        public async Task<IActionResult> GetRoom(int id)
         {
             try
             {
-                return Ok(_roomService.Get(id));
+                var room = await _roomService.GetAsync(id);
+
+                return Ok(room);
             }
             catch
             {
@@ -43,11 +48,11 @@ namespace HotelManager.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateRoom(RoomDTO room)
+        public async Task<IActionResult> CreateRoom(Room room)
         {
             try
             {
-                _roomService.Create(room);
+                await _roomService.CreateAsync(room);
 
                 return NoContent();
             }
@@ -58,11 +63,11 @@ namespace HotelManager.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, RoomDTO room)
+        public async Task<IActionResult> Update(int id, Room room)
         {
             try
             {
-                _roomService.Update(id, room);
+                await _roomService.UpdateAsync(id, room);
 
                 return NoContent();
             }
@@ -73,11 +78,11 @@ namespace HotelManager.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Remove(int id)
+        public async Task <IActionResult> Remove(int id)
         {
             try
             {
-                _roomService.Remove(id);
+                await _roomService.RemoveAsync(id);
 
                 return NoContent();
             }

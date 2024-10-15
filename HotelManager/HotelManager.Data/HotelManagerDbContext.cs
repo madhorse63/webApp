@@ -5,6 +5,8 @@ namespace HotelManager.Data
 {
     public class HotelManagerDbContext : DbContext
     {
+
+        public HotelManagerDbContext() { }
         public HotelManagerDbContext(DbContextOptions<HotelManagerDbContext> options) : base(options)
         {
 
@@ -14,7 +16,7 @@ namespace HotelManager.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("DefaultConnection");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=HotelManager;Trusted_Connection=True;TrustServerCertificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
